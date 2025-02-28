@@ -1,10 +1,14 @@
 A command-line interface to run :code:`bilby` using a YAML configuration file.
 
-Usage: bilby <config.yaml>
+..admonition:: Usage
+
+  .. code-block:: bash
+  
+    bilby <config.yaml>
 
 This executable will load the prior and likelihood from the provided YAML file
 and run the sampler. All arguments in the top level of the configuration file
-will be passed to :func:`bilby.core.sampler.run_sampler` except for
+will be passed to :code:`bilby.core.sampler.run_sampler` except for
 :code:`non-sampled` and :code:`post`. The former is ignored during the running
 and can be used to store anchors and templates. The latter is a dictionary
 specifying methods of the result object to call after the sampler has run,
