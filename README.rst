@@ -1,6 +1,8 @@
 A command-line interface to run :code:`bilby` using a YAML configuration file.
 
-.. admonition:: Usage
+.. note::
+
+  Usage:
 
   .. code-block:: bash
   
