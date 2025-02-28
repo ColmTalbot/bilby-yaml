@@ -1,0 +1,77 @@
+outdir: outdir
+label: sine_gaussian
+seed: !Seed 123
+save: hdf5
+sampler: dynesty
+nlive: 1000
+npool: 16
+# clean: true
+# resume: false
+injection_parameters: &injection_parameters
+  hrss: 1.0e-22
+  Q: 5.0
+  frequency: 200.0
+  psi: 2.659
+  geocent_time: 1126259642.413
+  ra: 1.375
+  dec: -1.2108
+non-sampled:
+  waveform-generator: &waveform_generator !CallWithKwargs:bilby.gw.waveform_generator.WaveformGenerator
+    duration: &duration 1.0
+    sampling_frequency: &sampling_frequency 512.0
+    frequency_domain_source_model: !Executable bilby.gw.source.sinegaussian
+  interferometer: &interferometer
+    injection_parameters:
+      <<: *injection_parameters
+    waveform_generator: *waveform_generator
+    duration: *duration
+    sampling_frequency: *sampling_frequency
+    start_time: 1126259641.913
+    save: false
+    plot: false
+    raise_error: false
+priors: &prior_dict !CallWithoutKwargs:bilby.gw.prior.PriorDict
+  Q: !CallWithKwargs:bilby.core.prior.Uniform
+    minimum: 2.0
+    maximum: 50.0
+    name: Q  
+  frequency: !CallWithKwargs:bilby.core.prior.Uniform
+    minimum: 160.0
+    maximum: 240.0
+    name: frequency
+  hrss: !CallWithKwargs:bilby.core.prior.LogUniform
+    minimum: 1.0e-23
+    maximum: 1.0e-21
+    name: hrss
+  azimuth: !CallWithKwargs:bilby.core.prior.Uniform
+    minimum: 0.0
+    maximum: 6.283185307179586
+    name: azimuth
+    boundary: periodic
+  zenith: !CallWithKwargs:bilby.core.prior.Sine
+    minimum: 0.0
+    maximum: 3.141592653589793
+    name: zenith
+  H1_time: !CallWithKwargs:bilby.core.prior.Uniform
+    minimum: 1126259642.313
+    maximum: 1126259642.513
+    name: H1_time
+  psi: !CallWithKwargs:bilby.core.prior.Uniform
+    minimum: 0.0
+    maximum: 3.141592653589793
+    name: psi
+    boundary: periodic
+likelihood: !CallWithKwargs:bilby.gw.likelihood.GravitationalWaveTransient
+  waveform_generator: *waveform_generator
+  interferometers: &interferometers
+    - !CallWithKwargs:bilby.gw.detector.get_interferometer_with_fake_noise_and_injection
+      name: H1
+      <<: *interferometer
+    - !CallWithKwargs:bilby.gw.detector.get_interferometer_with_fake_noise_and_injection
+      name: L1
+      <<: *interferometer
+  priors: *prior_dict
+  reference_frame: H1L1
+  time_reference: H1
+post:
+  plot_corner:

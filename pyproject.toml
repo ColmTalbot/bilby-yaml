@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bilby_yaml"
+authors = [
+    {name = "Colm Talbot", email = "talbotcolm@gmail.com"},
+]
+description = "A command-line interface for bilby using YAML configuration files."
+readme = "README.rst"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "pyyaml",
+    "bilby",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+gw = [
+    "bilby[gw]",
+]
+
+[project.scripts]
+bilby = "bilby_yaml:main"
+
+[tool.setuptools]
+packages = ["bilby_yaml"]
+
+[tool.setuptools_scm]
+write_to = "_version.py"

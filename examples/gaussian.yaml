@@ -1,0 +1,23 @@
+label: gaussian
+outdir: outdir
+seed: 123
+sampler: dynesty
+nlive: 1000
+clean: true
+resume: false
+injection-parameters: &injection_parameters
+  mu: 3
+  sigma: 4
+priors: !CallWithoutKwargs:bilby.core.prior.PriorDict
+  mu: !CallWithKwargs:bilby.core.prior.Uniform
+    minimum: 0
+    maximum: 5
+    latex_label: $\\mu$
+  sigma: !CallWithKwargs:bilby.core.prior.Uniform
+    minimum: 0
+    maximum: 10
+    latex_label: $\\sigma$
+likelihood: !CallWithKwargs:bilby_yaml.SimpleGaussianLikelihood
+  N: 100000
+  injection_parameters:
+    <<: *injection_parameters
