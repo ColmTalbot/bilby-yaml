@@ -30,3 +30,7 @@ jobs:
     - name: Run examples
       run: |
         bilby examples/linear_regression.yaml
+        bilby examples/sine_gaussian.yaml
+        bilby examples/bbh.yaml
+        bilby examples/gaussian.yaml
+        bilby examples/multivariate_gaussian.yaml
