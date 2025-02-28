@@ -29,7 +29,7 @@ gw = [
 bilby = "bilby_yaml:main"
 
 [tool.setuptools]
-packages = ["bilby_yaml"]
+py-modules = ["bilby_yaml"]
 
 [tool.setuptools_scm]
 write_to = "_version.py"

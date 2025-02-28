@@ -5,6 +5,7 @@ sampler: dynesty
 nlive: 1000
 clean: true
 resume: false
+save: hdf5
 injection-parameters: &injection_parameters
   mu: 3
   sigma: 4

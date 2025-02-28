@@ -5,6 +5,7 @@ sampler: dynesty
 nlive: 10000
 clean: true
 resume: false
+save: hdf5
 non-sampled:
   mvg: !CallWithKwargs:bilby.core.prior.MultivariateGaussianDist &mvg
     names: ["x0", "x1"]

@@ -5,8 +5,8 @@ save: hdf5
 sampler: dynesty
 nlive: 1000
 npool: 16
-# clean: true
-# resume: false
+clean: true
+resume: false
 injection_parameters: &injection_parameters
   hrss: 1.0e-22
   Q: 5.0
@@ -31,6 +31,7 @@ non-sampled:
     plot: false
     raise_error: false
 priors: &prior_dict !CallWithoutKwargs:bilby.gw.prior.PriorDict
+  <<: *injection_parameters
   Q: !CallWithKwargs:bilby.core.prior.Uniform
     minimum: 2.0
     maximum: 50.0
@@ -43,19 +44,6 @@ priors: &prior_dict !CallWithoutKwargs:bilby.gw.prior.PriorDict
     minimum: 1.0e-23
     maximum: 1.0e-21
     name: hrss
-  azimuth: !CallWithKwargs:bilby.core.prior.Uniform
-    minimum: 0.0
-    maximum: 6.283185307179586
-    name: azimuth
-    boundary: periodic
-  zenith: !CallWithKwargs:bilby.core.prior.Sine
-    minimum: 0.0
-    maximum: 3.141592653589793
-    name: zenith
-  H1_time: !CallWithKwargs:bilby.core.prior.Uniform
-    minimum: 1126259642.313
-    maximum: 1126259642.513
-    name: H1_time
   psi: !CallWithKwargs:bilby.core.prior.Uniform
     minimum: 0.0
     maximum: 3.141592653589793
@@ -71,7 +59,5 @@ likelihood: !CallWithKwargs:bilby.gw.likelihood.GravitationalWaveTransient
       name: L1
       <<: *interferometer
   priors: *prior_dict
-  reference_frame: H1L1
-  time_reference: H1
 post:
   plot_corner:

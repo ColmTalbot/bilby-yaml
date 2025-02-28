@@ -229,7 +229,7 @@ def main():
         config = yaml.load(ff, Loader=BilbyLoader)
 
     config.pop("non-sampled", None)
-    post = config.pop("post", list())
+    post = config.pop("post", dict())
 
     result = bilby.run_sampler(**config)
 

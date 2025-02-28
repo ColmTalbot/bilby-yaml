@@ -1,2 +1,6 @@
 _version.py
 *egg-info
+outdir/
+foo/
+*.npz
+build/

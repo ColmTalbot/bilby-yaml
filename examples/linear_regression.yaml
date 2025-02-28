@@ -1,10 +1,11 @@
 label: linear_regression
 outdir: outdir
-seed: 123
+seed: !Seed 123
 sampler: dynesty
 nlive: 250
 clean: true
 resume: false
+save: hdf5
 injection-parameters:
   m: 0.5
   c: 0.2

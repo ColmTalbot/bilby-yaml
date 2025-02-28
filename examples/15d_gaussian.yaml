@@ -1,10 +1,13 @@
 label: gaussian
 outdir: outdir
-seed: 123
+seed: !Seed 123
 sampler: dynesty
 nlive: 1000
+sample: acceptance-walk
+naccept: 10
 clean: true
 resume: false
+save: hdf5
 meta_data:
   base-prior: &prior_kwargs
     minimum: -5
